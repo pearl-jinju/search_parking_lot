@@ -2,6 +2,7 @@
 import streamlit as st
 from streamlit.components.v1 import html
 from haversine import haversine
+url = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/"
 
 html1 =html("""
                 <!DOCTYPE html>
@@ -16,13 +17,13 @@ html1 =html("""
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
                 } else { 
-                    let pos = "http://localhost:8501/?pos=none"+'_'+"none";
+                    let pos = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/"+"?pos=none_none";
                 }
                 return position.coords.latitude+"_"+position.coords.longitude
                 }
 
                 function showPosition(position) {
-                let pos = "http://localhost:8501/?pos="+position.coords.latitude+"_"+position.coords.longitude
+                let pos = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/" + "?pos="+position.coords.latitude+"_"+position.coords.longitude
                 window.location.replace(pos)
                 }
                 getLocation() 
