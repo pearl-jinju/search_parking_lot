@@ -2,7 +2,17 @@
 import streamlit as st
 from streamlit.components.v1 import html
 from haversine import haversine
-url = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/"
+from loader import loadParkingList
+import folium as g  
+
+title = st.title("내 주변 주차장 찾기")
+# streamlit
+#   let pos = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/"+"?pos=none_none";
+#   let pos = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/" + "?pos=" + position.coords.latitude+"_"+position.coords.longitude
+# local
+#   let pos = "http://localhost:8501/"+"?pos=none_none";
+#   let pos = "http://localhost:8501/" + "?pos=" + position.coords.latitude+"_"+position.coords.longitude
+
 
 html1 =html("""
                 <!DOCTYPE html>
@@ -23,7 +33,7 @@ html1 =html("""
                 }
 
                 function showPosition(position) {
-                let pos = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/" + "?pos="+position.coords.latitude+"_"+position.coords.longitude
+                let pos = "https://pearl-jinju-search-parking-lot-app-4gzwti.streamlit.app/" + "?pos=" + position.coords.latitude+"_"+position.coords.longitude
                 window.location.replace(pos)
                 }
                 getLocation() 
@@ -41,16 +51,27 @@ req_dict = st.experimental_get_query_params()
 # 안쪽 html
 if req_dict:
     pos = req_dict['pos'][0].split("_")
-    curr_pos = (float(pos[0]), float(pos[1]))
-    target_place = (37.541, 126.986)
-    distance = haversine(target_place, curr_pos, unit = 'm')
+    parking_data = loadParkingList(float(pos[0]), float(pos[1]))
     
-    st.text(curr_pos)
-    st.text(f"서울과의 거리 : {distance}m")
+    del parking_data['위도']
+    del parking_data['경도']
+    st.dataframe(parking_data, use_container_width=True)
+    # for idx in range(len(parking_data)):
+    #     name = parking_data.iloc[idx]['주차장명']
+    #     lots = parking_data.iloc[idx]['주차구획수']
+    #     lat = parking_data.iloc[idx]['위도']
+    #     long = parking_data.iloc[idx]['경도']
+    #     lots_owner_type = parking_data.iloc[idx]['주차장구분']
+    #     lots_side_type = parking_data.iloc[idx]['주차장유형']
+    #     address = parking_data.iloc[idx]['주차장도로명주소']
+    #     fee = parking_data.iloc[idx]['요금정보']
+    #     distance = parking_data.iloc[idx]['거리']
+
     html1.empty()
 # 바깥쪽 html
 else:
     st.info(" ")
+    title.empty()
     
 
 # url = "http://localhost:8501/"
