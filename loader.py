@@ -2,7 +2,7 @@ import pandas as pd
 from haversine import haversine
 
 def loadParkingList(lat,long):
-    data = pd.read_csv(".\\data\\parking_data_20191224.csv", encoding='cp949')
+    data = pd.read_csv(".\\parking_data_20191224.csv", encoding='cp949')
     print(data.columns)
     data = data[['주차장명','위도','경도','주차구획수','주차장구분','주차장유형','주차장도로명주소','요금정보','연락처']]
     data = data.astype({'위도':'object'})
