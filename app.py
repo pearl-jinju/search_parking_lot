@@ -1,9 +1,7 @@
 # -- coding: utf-8 --
 import streamlit as st
 from streamlit.components.v1 import html
-from haversine import haversine
 from loader import loadParkingList
-import folium as g  
 
 title = st.title("내 주변 주차장 찾기")
 # streamlit
