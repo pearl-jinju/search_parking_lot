@@ -11,13 +11,6 @@ title = st.title("내 주변 주차장 찾기")
 #   let pos = "http://localhost:8501/"+"?pos=none_none";
 #   let pos = "http://localhost:8501/" + "?pos=" + position.coords.latitude+"_"+position.coords.longitude
 
-st.set_page_config(
-    page_title="아차차! 빠르게 내 주변 주차장 찾기",
-    page_icon="🧊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-
 
 html1 =html("""
                 <!DOCTYPE html>
